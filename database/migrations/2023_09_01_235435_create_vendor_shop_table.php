@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('social_id')->nullable();
-            $table->string('social_type')->nullable();
+        Schema::create('vendor_shop', function (Blueprint $table) {
+            $table->integer('vendor_id', true);
+            $table->string('shop_name', 200)->nullable();
+            $table->text('shop_description')->nullable();
+            $table->unsignedBigInteger('user_id')->index('vendor_shop_users_id_fk');
         });
     }
 
@@ -26,5 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('vendor_shop');
     }
 };
