@@ -85,6 +85,7 @@ class VendorController extends UserController
                 'users.created_at',
                 'users.phone_number',
                 'users.address',
+                'users.status',
                 'vendor_shop.shop_description',
                 'vendor_shop.shop_name'
             )

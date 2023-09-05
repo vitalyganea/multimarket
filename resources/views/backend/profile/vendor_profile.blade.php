@@ -2,7 +2,7 @@
 @section('PageTitle', 'Profile')
 @section('content')
 
-    @if(!$status)
+    @if(!$data->status)
         <div class="alert alert-danger border-0 bg-danger alert-dismissible fade show py-2">
             <div class="d-flex align-items-center">
                 <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
