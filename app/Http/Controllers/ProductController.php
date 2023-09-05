@@ -43,6 +43,11 @@ class ProductController extends Controller
         return view('backend.product.product_add', compact('brands', 'subCategories'));
     }
 
+
+    public function showProducts(){
+        return view('backend.product.product_default', ['data' => ProductModel::all()]);
+    }
+
     /**
      * @param ProductRequest $request
      */

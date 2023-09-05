@@ -32,6 +32,11 @@ class AdminController extends UserController
         }
     }
 
+
+    public function showVendors(){
+        return view('backend.admin.all_vendors', ['data' => User::where('role', '=', 'vendor')->get()]);
+    }
+
     public function userRemove(Request $request){
         try {
             $user = User::findOrFail($request->id);

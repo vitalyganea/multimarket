@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Storage;
 class RouteServiceProvider extends ServiceProvider
 {
     /**
@@ -37,6 +37,12 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            foreach ($this->test() as $route){
+                Route::middleware('web')
+                    ->group(base_path("routes/{$route}"));
+            }
+
         });
     }
 
@@ -50,5 +56,22 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
+    }
+
+    public function test()
+    {
+        $files = scandir(base_path("routes"));
+
+        $routes = [];
+
+        foreach ($files as $file) {
+
+            if (str_ends_with($file, '.php')) {
+                $routes[] =  $file;
+            }
+        }
+        return $routes;
+
+
     }
 }

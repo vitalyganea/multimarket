@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('coupon', function (Blueprint $table) {
-            $table->foreign(['VendorId'], 'coupon_vendor_shop_vendor_id_fk')->references(['vendor_id'])->on('vendor_shop')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign('VendorId', 'coupon_vendor_shop_vendor_id_fk')->references(['vendor_id'])->on('vendor_shop')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 

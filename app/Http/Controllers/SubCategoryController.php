@@ -17,8 +17,15 @@ use Illuminate\Support\Facades\DB;
 class SubCategoryController extends Controller
 {
     public function subCategoryAdd(){
-        $data = DB::table('get_sub_categories')->get();
+        $data = DB::table('sub_category')
+            ->select('*')
+            ->selectSub(function ($query) {
+                return $query->from('category')
+                    ->where('category_id', '=', DB::raw('sub_category.category_id'))
+                    ->select('category_name');
+            }, 'category_name')->get();
         $categories = CategoryModel::all();
+
         return view('backend.sub_category.sub_category_default', compact('data', 'categories'));
     }
 
@@ -65,6 +72,11 @@ class SubCategoryController extends Controller
         }catch (ModelNotFoundException $exception){
             return redirect('sub_categories')->with('error', 'Failed to remove this sub Category.');
         }
+    }
+
+
+    public function addSubCategory(){
+        return view('backend.sub_category.sub_category_add', ['categories' => CategoryModel::all()]);
     }
 
     /**

@@ -42,6 +42,10 @@ class CategoryController extends Controller
         return str_replace(' ', '-', strtolower(trim($categoryName)));
     }
 
+    public function showCategories(){
+        return view('backend.category.category_default', ['data' => CategoryModel::all()]);
+    }
+
     /**
      * @param Request $request
      * @return Application|RedirectResponse|Redirector

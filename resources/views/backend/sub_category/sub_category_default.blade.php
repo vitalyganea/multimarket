@@ -129,7 +129,7 @@
                                                                                 <option
                                                                                     value="{{$category->category_id}}"
                                                                                     @if($category->category_id ==
-                                                                                    $item->selected_category_id)
+                                                                                    $item->category_id)
                                                                                         selected
                                                                                     @endif
                                                                                 >

@@ -40,6 +40,10 @@ class BrandController extends Controller
         return str_replace(' ', '-', strtolower(trim($brandName)));
     }
 
+    public function showBrands(){
+        return view('backend.brand.brand_default', ['data' => BrandModel::all()]);
+    }
+
     /**
      * @param Request $request
      */
