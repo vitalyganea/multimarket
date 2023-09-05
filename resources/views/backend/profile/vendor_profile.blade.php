@@ -1,10 +1,3 @@
-@php
-    use App\MyHelpers;use Illuminate\Support\Facades\Auth;
-    use Illuminate\Support\Facades\DB;
-    $data = DB::table('get_vendor_data')->where('id', Auth::id())->get()[0];
-    $status = Auth::user()->status;
-@endphp
-
 @extends('backend.layouts.app')
 @section('PageTitle', 'Profile')
 @section('content')
@@ -123,7 +116,7 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
 
-                                        <h6 class="mb-0">{{MyHelpers::getDiffOfDate($data->created_at)}}</h6>
+                                        <h6 class="mb-0">{{\App\MyHelpers::getDiffOfDate($data->created_at)}}</h6>
                                         <br>
                                     </div>
                                 </div>

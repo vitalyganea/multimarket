@@ -31,7 +31,9 @@ class ProductController extends Controller
      * @return int
      */
     private function getVendorId(): int{
-       return  DB::table('get_vendor_data')->where('id', '=', Auth::id())->get('vendor_id')[0]->vendor_id;
+       return  DB::table('vendor_shop')
+           ->select('vendor_shop.vendor_id')
+           ->where('vendor_shop.user_id', Auth::id())->first()->vendor_id;
     }
 
     /**
@@ -191,8 +193,11 @@ class ProductController extends Controller
 
         try {
             ProductModel::findOrFail($productId);
-            $data = DB::table('get_product_data')
-                ->where('offer_product_id', '=', $productId)->get()[0];
+            $data = DB::table('product')
+                ->select('product.*', 'product_offers.*')
+                ->where('product_id', '=', $productId)
+                ->join('product_offers', 'product.product_id', 'product_offers.offer_product_id')
+                ->first();
             $brands = BrandModel::all();
             $subCategories = SubCategoryModel::all();
             $productImages = ProductImagesModel::where('image_product_id', $productId)->get();

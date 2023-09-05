@@ -74,4 +74,25 @@ class VendorController extends UserController
             ->select('vendor_id')->value('vendor_id');
     }
 
+
+    public function showVendorProfile(){
+
+        $data = DB::table('users')
+            ->select(
+        'users.name',
+                'users.email',
+                'users.username',
+                'users.created_at',
+                'users.phone_number',
+                'users.address',
+                'vendor_shop.shop_description',
+                'vendor_shop.shop_name'
+            )
+            ->join('vendor_shop', 'users.id', '=', 'vendor_shop.user_id')
+            ->where('users.id', Auth::id())->first();
+
+        $status = Auth::user()->status;
+        return view('backend.profile.vendor_profile', compact('data', 'status'));
+    }
+
 }

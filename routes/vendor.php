@@ -17,7 +17,7 @@ Route::middleware(['auth', 'auth.role:vendor'])
     ->controller(VendorController::class)->group(function (){
 
         // profile
-        Route::view('profile', 'backend.profile.vendor_profile')->name('profile');
+        Route::get('profile', 'showVendorProfile')->name('profile');
         Route::post('profile/update_info', 'updateInfo')->name('profile-info-update');
         Route::post('profile/update_image', 'updateImage')->name('profile-image-update');
         Route::post('profile/update_password', 'updatePassword')->name('profile-password-update');
